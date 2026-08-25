@@ -1,2 +1,7 @@
-package org.example.model;public enum TaskStatus {
+package org.example.model;
+
+public enum TaskStatus {
+    TODO,
+    IN_PROGRESS,
+    DONE
 }

@@ -1,2 +1,18 @@
-package org.example.repository;public interface TaskRepository {
+package org.example.repository;
+
+import org.example.model.Task;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface TaskRepository {
+    Task save(Task task);
+
+    Optional<Task> findById(Long id);
+
+    List<Task> findAll();
+
+    void update(Task task);
+
+    void deleteById(Long id);
 }
