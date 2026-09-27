@@ -24,6 +24,7 @@ public class Main {
         StudySessionService studySessionService = new StudySessionServiceImpl(studySessionRepository,taskRepository);
 
 
+        System.out.println("Test git hub");
         Topic javaTopic = topicService.createTopic("Java Backend");
 
         Task task1 = taskService.createTask("Learn Stream API", "Повторить filter, map, collect",
