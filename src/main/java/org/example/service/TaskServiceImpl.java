@@ -1,9 +1,11 @@
 package org.example.service;
 import org.example.exception.InvalidTaskException;
 import org.example.exception.TaskNotFoundException;
+import org.example.exception.TopicNotFoundException;
 import org.example.model.Task;
 import org.example.model.TaskStatus;
 import org.example.repository.TaskRepository;
+import org.example.repository.TopicRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,9 +14,11 @@ import java.util.stream.Collectors;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository repository;
+    private final TopicRepository topicRepository;
 
-    public TaskServiceImpl(TaskRepository repository){
+    public TaskServiceImpl(TaskRepository repository,TopicRepository topicRepository){
         this.repository = repository;
+        this.topicRepository=topicRepository;
     }
 
 
@@ -23,7 +27,11 @@ public class TaskServiceImpl implements TaskService {
         if (title == null || title.isBlank()) {
             throw new InvalidTaskException("Title cannot be empty");
         }
-        Task task = new Task(null,title,description,topicId,deadline);
+
+        topicRepository.findById(topicId)
+                .orElseThrow(() -> new TopicNotFoundException("Topic not found: id=" + topicId));
+
+        Task task = new Task(null, title, description, topicId, deadline);
         return repository.save(task);
     }
 
