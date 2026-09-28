@@ -4,7 +4,13 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
+import lombok.Getter;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode(of = "id")
+@Getter
+@ToString(of = {"id", "taskId", "startTime", "endTime"})
 public class StudySession {
     private Long id;
     private Long taskId;
@@ -35,18 +41,8 @@ public class StudySession {
         }
         return endTime;
     }
-    public Long getId(){
-        return id;
-    }
-    public Long getTaskId(){
-        return taskId;
-    }
-    public LocalDateTime getStartTime(){
-        return startTime;
-    }
-    public LocalDateTime getEndTime(){
-        return endTime;
-    }
+
+
 
     public void setId(Long id){
         this.id=id;
@@ -66,25 +62,6 @@ public class StudySession {
         }
         return Optional.of(Duration.between(startTime,endTime));
     }
-    @Override
-    public boolean equals(Object o){
-        if (this == o)return true;
-        if(o==null || getClass() != o.getClass())return false;
-        StudySession that = (StudySession) o;
-        return Objects.equals(id,that.id);
 
-    }
-    @Override
-    public int hashCode(){
-        return Objects.hash(id);
-    }
-    @Override
-    public String toString(){
-        return "StudySession{" +
-                "id=" + id +
-                ", taskId=" + taskId +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                '}';
-    }
+
 }

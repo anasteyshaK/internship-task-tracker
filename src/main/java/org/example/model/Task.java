@@ -2,14 +2,24 @@ package org.example.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@Getter
+@EqualsAndHashCode(of = "id")
+@ToString(of = {"id", "title", "status", "deadline"})
 public class Task {
     private Long id;
     private String title;
+    @Setter
     private String description;
     private Long topicId;
+    @Setter
     private TaskStatus status;
     private final LocalDateTime createdAT;
+    @Setter
     private LocalDateTime deadline;
 
     public Task(Long id,String title,String description,Long topicId,LocalDateTime deadline){
@@ -22,28 +32,7 @@ public class Task {
         this.createdAT=LocalDateTime.now();
         this.deadline=deadline;
     }
-    public Long getId(){
-        return id;
-    }
-    public String getTitle(){
-        return title;
-    }
-    public String getDescription(){
-        return description;
-    }
-    public Long getTopicId(){
-        return  topicId;
-    }
 
-    public TaskStatus getStatus() {
-        return status;
-    }
-    public LocalDateTime getCreatedAT(){
-        return createdAT;
-    }
-    public LocalDateTime getDeadline(){
-        return deadline;
-    }
     private String resolveTitle(String title) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Title cannot be empty");
@@ -58,35 +47,5 @@ public class Task {
         this.title=resolveTitle(title);
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void setStatus(TaskStatus status){
-        this.status=status;
-    }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
-    @Override
-    public boolean equals(Object o){
-        if(this==o)return true;
-        if(o==null||getClass()!=o.getClass())return false;
-        Task task = (Task) o;
-        return Objects.equals(id,task.id);
-    }
-    @Override
-    public int hashCode(){
-        return Objects.hash(id);
-    }
-    @Override
-    public String toString(){
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", status=" + status +
-                ", deadline=" + deadline +
-                '}';
-    }
 }
